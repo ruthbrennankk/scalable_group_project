@@ -1,7 +1,0 @@
-python3 generate.py --width 128 --height 64 --length 6 --count 192000 --output_dir  train_set --symbols symbols.txt
-python3 generate.py --width 128 --height 64 --length 6 --count 19200 --output_dir  val_set --symbols symbols.txt
-python3 generate.py --width 128 --height 64 --length 6 --count 100 --output_dir  test_set --symbols symbols.txt
-
-python3 train.py --width 128 --height 64 --length 6 --symbols symbols.txt --batch-size 32 --epochs 5 --output-model test_train_model --train-dataset train_set --validate-dataset val_set
-
-python3 classify.py --model-name train_model --captcha-dir example_captchas --output output.csv --symbols symbols.txt
