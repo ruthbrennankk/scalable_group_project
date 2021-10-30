@@ -1,24 +1,7 @@
-    width = 128
-    height = 64
-
-    # Train
-    # count =  192000 #160000 - 10m 58s #16000 - 1m 6s #100 - 0s
-    # output_dir = '/content/train_set' # image set
-    # outputFile = '/content/train_labels.txt' #  labels
-    # Val
-    # count = 19200 #160000 - 10m 58s #16000 - 1m 6s #100 - 0s
-    # output_dir = '/content/val_set' # image set
-    # outputFile = '/content/val_labels.txt' #  labels
-    # Test
-    count = 100  # 160000 - 10m 58s #16000 - 1m 6s #100 - 0s
-    output_dir = '/content/test_set'  # image set
-    outputFile = '/content/test_labels.txt'  # labels
-
 python3 generate.py --width 128 --height 64 --length 6 --count 192000 --output_dir  train_set --symbols symbols.txt
 python3 generate.py --width 128 --height 64 --length 6 --count 19200 --output_dir  val_set --symbols symbols.txt
 python3 generate.py --width 128 --height 64 --length 6 --count 100 --output_dir  test_set --symbols symbols.txt
 
-python3 train.py --width 128 --height 64 --length 4 --symbols symbols.txt --batch-size 8 --epochs 5 --output-model test_train_model --train-dataset /Users/ruthbrennan/Documents/5th_Year/captcha_detection/training --validate-dataset /Users/ruthbrennan/Documents/5th_Year/captcha_detection/validation
+python3 train.py --width 128 --height 64 --length 6 --symbols symbols.txt --batch-size 32 --epochs 5 --output-model test_train_model --train-dataset train_set --validate-dataset val_set
 
-python3 classify.py --model-name train_model --captcha-dir ~/Documents/5th_Year/CS7NS1_Assignment_1/example_captchas --output train_test_output.txt --symbols symbols.txt
-
+python3 classify.py --model-name train_model --captcha-dir example_captchas --output output.csv --symbols symbols.txt

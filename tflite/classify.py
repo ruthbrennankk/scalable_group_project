@@ -19,9 +19,9 @@ def main():
     # output = '/content/converted_4_output.csv'
     # symbols = '/content/drive/MyDrive/Year V/Scalable Computing/Practical 1/symbols.txt'
 
-    model_name = '/users/ugrad/brennar5/captcha_detection/model_19_e7.tflite'
-    captcha_dir = '/users/ugrad/brennar5/captcha_detection/brennar5_imgs'
-    output = '/users/ugrad/brennar5/captcha_detection/brennar5_19_e7.csv'
+    model_name = '/users/ugrad/brennar5/scalable_group_project/tflite/model_19_e7.tflite'
+    captcha_dir = '/users/ugrad/brennar5/scalable_group_project/getImageSet/brennar5_imgs'
+    output = '/users/ugrad/brennar5/scalable_group_project/output/brennar5_19_e7.csv'
     captcha_symbols = 'ABCDeFghijkMnPQRSTUVWXxYZz0123456789#/\[]:><%{}-+'
     print("Classifying captchas with symbol set {" + captcha_symbols + "}")
     count = 0
