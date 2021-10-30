@@ -4,4 +4,6 @@ bs4
 tensorflow
 aiohttp
 opencv-python
+stsci.ndimage
+captcha
 # pip3 install --index-url https://google-coral.github.io/py-repo/ tflite_runtime
