@@ -1,7 +1,14 @@
 # scalable_group_project
 
 ### Compile/Run Instructions 
---TODO
+*Generate* <br/>
+Generation for this project is done using a google colab notebook. You should open one of the notebooks in colab and execute the set up code boxes before executing the generate code block. This will create a training set (size 192,000), validation set (size 19,200) and a test set (size 100)using the captcha symbol set 'ABCDeFghijkMnPQRSTUVWXxYZz0123456789#/\[]:><%{}-+' <br/>
+<br/>
+*Training* <br/>
+Training is also done in google colab, executing the training code block will train using the previously generated training and validation image sets in batches of 32 for 6 epochs. <br/>
+<br/>
+*Classification* <br/>
+We convert the model to a tflite model by executing the convert code block and then that tflite is transfered to the raspberry pi using git. And the classify.py script is executed using that model to classify the images.
 
 #### File Retrieval
 --TODO
