@@ -11,7 +11,8 @@ Training is also done in google colab, executing the training code block will tr
 We convert the model to a tflite model by executing the convert code block and then that tflite is transfered to the raspberry pi using git. And the classify.py script is executed using that model to classify the images.
 
 #### File Retrieval
---TODO
+We implemented a bulk file download script to be run on the raspberry pi using aiohttp- an async I/O API. Which allowed us to speed up and automate the task.
+This can be further extended to handle larger I/O intensive tasks like this. 
 
 #### Pre and Post Processing
 We trialled multiple pre-processing approaches, which can be found in our preprocessing file. We found that less seemed to be more in this case and ended up with the preprocessing suggested in the original code we downloaded from blackboard.
