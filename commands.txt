@@ -1,3 +1,6 @@
+# File Retrieval 
+python FileScrapper.py --inputFileName = trainingFileNames.txt
+
 # Generate Example Commands
 python3 generate.py --width 128 --height 64 --length 6 --symbols symbols.txt --count 192000 --output-dir train_set --output-labels train_labels.txt
 python3 generate.py --width 128 --height 64 --length 6 --symbols symbols.txt --count 19200 --output-dir val_set --output-labels val_labels.txt
