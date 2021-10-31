@@ -14,8 +14,7 @@ We convert the model to a tflite model by executing the convert code block in co
 And the classify.sh script is executed using the specified model to classify the images inside the venv. <br/>
 
 #### File Retrieval
-We implemented a bulk file download script to be run on the raspberry pi using aiohttp- an async I/O API. Which allowed us to speed up and automate the task.
-This can be further extended to handle larger I/O intensive tasks like this. 
+We first execute the get Filenames script by passing our shortname and filename to the endpoint via a get request. We then parse the contents of the response from html to csv using the htmlToCSV python script. Finally we utilise a bulk file download script (FileScrapper) to be run on the raspberry pi using aiohttp- an async I/O API. Which allowed us to speed up and automate the task of getting each of the individual images. This can be further extended to handle larger I/O intensive tasks like this. <br/>
 
 #### Pre and Post Processing
 We trialled multiple pre-processing approaches, which can be found in our preprocessing file. We found that less seemed to be more in this case and ended up with the preprocessing suggested in the original code we downloaded from blackboard.
