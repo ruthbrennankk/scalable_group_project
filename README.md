@@ -26,7 +26,12 @@ Since some special characters can't be used for filenames we decided to implemen
 For the final model we used 192,000 training images, this gave us 6,000 batches per epoch. We generated and used 19,200 validation images as well. <br/>
 
 #### Submitty Solving
-We started by working with models we had from the previous assignment. We each trained a model over what we deemed to be a whole symbol set by combining what our classmates suggested on piazza with what we observed from our own sets. We then began to reduce that symbol set through eliminations and submissions. <br/>
+We started by working with models we had from the previous assignment. We each trained a model over what we deemed to be a whole symbol set by combining what our classmates suggested on piazza with what we observed from our own sets. We then began to reduce that symbol set through eliminations and submissions.
+## Initial Symbol set we started with - 
+"0123456789eghijknpoqsuvwxyzABCDFJKMPQRSTUVWXYZ#[]+:></%{}\-|_"
+## Final Symbol set we have used -
+'ABCDeFghijkMnPQRSTUVWXxYZz0123456789#/\[]:><%{}-+
+<br/>
 
 ####  Timing information
 | Metric          | Time        |
