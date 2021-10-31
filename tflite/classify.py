@@ -1,43 +1,62 @@
-# Classify - Lite
 #!/usr/bin/env python3
-import os
-import cv2
-import numpy as np
-import tflite_runtime.interpreter as tflite
+
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
+import os
+import cv2
+import numpy as np
+import argparse
+import tflite_runtime.interpreter as tflite
+
 def decode(characters, y):
-    y = np.argmax(np.array(y), axis=1)
-    #y = np.argmax(np.array(y), axis=2)[:,0]
+    y = np.argmax(np.array(y), axis=2)[:,0]
     return ''.join([characters[x] for x in y])
 
 def main():
-    # model_name = '/content/converted_test.tflite'
-    # captcha_dir = '/content/testers_4_characters_no_lowercase'
-    # output = '/content/converted_4_output.csv'
-    # symbols = '/content/drive/MyDrive/Year V/Scalable Computing/Practical 1/symbols.txt'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model-name', help='Model name to use for classification', type=str)
+    parser.add_argument('--captcha-dir', help='Where to read the captchas to break', type=str)
+    parser.add_argument('--output', help='File where the classifications should be saved', type=str)
+    parser.add_argument('--symbols', help='File with the symbols to use in captchas', type=str)
+    args = parser.parse_args()
 
-    model_name = '/users/ugrad/brennar5/scalable_group_project/tflite/model_19_e7.tflite'
-    captcha_dir = '/users/ugrad/brennar5/scalable_group_project/getImageSet/brennar5_imgs'
-    output = '/users/ugrad/brennar5/scalable_group_project/output/brennar5_19_e7.csv'
-    captcha_symbols = 'ABCDeFghijkMnPQRSTUVWXxYZz0123456789#/\[]:><%{}-+'
+    if args.model_name is None:
+        print("Please specify the CNN model to use")
+        exit(1)
+
+    if args.captcha_dir is None:
+        print("Please specify the directory with captchas to break")
+        exit(1)
+
+    if args.output is None:
+        print("Please specify the path to the output file")
+        exit(1)
+
+    if args.symbols is None:
+        print("Please specify the captcha symbols file")
+        exit(1)
+
+    symbols_file = open(args.symbols, 'r')
+    captcha_symbols = symbols_file.readline().strip()
+    symbols_file.close()
+    captcha_symbols = captcha_symbols + ' '
     print("Classifying captchas with symbol set {" + captcha_symbols + "}")
     count = 0
 
-    with open(output, 'w') as output_file:
-        tf_interpreter = tflite.Interpreter(model_name)
+    with open(args.output, 'w') as output_file:
+        tf_interpreter = tflite.Interpreter(args.model_name)
         tf_interpreter.allocate_tensors()
         input_tf = tf_interpreter.get_input_details()
         output_tf = tf_interpreter.get_output_details()
 
-        files = os.listdir(captcha_dir)
+        files = os.listdir(args.captcha_dir)
         files = sorted(files)
 
         for x in files:
             # Load & Preprocess Image
-            raw_data = cv2.imread(os.path.join(captcha_dir, x))
+            raw_data = cv2.imread(os.path.join(args.captcha_dir, x))
             rgb_data = cv2.cvtColor(raw_data, cv2.COLOR_BGR2RGB)
             image = np.array(rgb_data, dtype=np.float32) / 255.0
             (c, h, w) = image.shape
@@ -49,11 +68,12 @@ def main():
             for output_node in output_tf:
                 prediction.append(tf_interpreter.get_tensor(output_node['index']))
             prediction = np.reshape(prediction,(len(output_tf),-1))
-            decoded_symbol = decode(captcha_symbols, prediction)
-            output_file.write(x + "," + decoded_symbol + "\n")
+            predictedAnswer = decode(captcha_symbols, prediction)
+            predictedAnswer = predictedAnswer.replace(" ", "")
+            output_file.write(x + "," + predictedAnswer + "\n")
 
-            answer = x[:-4]
-            print('Classified (count ' + str(count) + ') ' + answer + '///' + predictedAnswer)
+            file = x[:-4]
+            print('Classified (count ' + str(count) + ') ' + file + '///' + predictedAnswer)
             count = count + 1
 
 if __name__ == '__main__':

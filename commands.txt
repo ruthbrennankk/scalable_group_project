@@ -1,0 +1,9 @@
+# Generate Example Commands
+python3 generate.py --width 128 --height 64 --length 6 --symbols symbols.txt --count 192000 --output-dir train_set --output-labels train_labels.txt
+python3 generate.py --width 128 --height 64 --length 6 --symbols symbols.txt --count 19200 --output-dir val_set --output-labels val_labels.txt
+
+# Train Example Command
+python3 train.py --width 128 --height 64 --length 6 --symbols symbols.txt --batch-size 32 --epochs 7 --output-model output_model_name --train-dataset train_data --train-dataset-labels train_data_labels.txt --validate-dataset val_data --train-dataset-labels val_data_labels.txt
+
+# Classify Example Command
+python3 classify.py --model-name converted_model_19_e7.tflite --captcha-dir brennar5_imgs --output output.csv --symbols symbols.txt
